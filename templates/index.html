@@ -14,9 +14,9 @@ display:flex;
 justify-content:center;
 }
 
-.chat-container{
+.chat{
 width:700px;
-margin-top:50px;
+margin-top:40px;
 }
 
 .messages{
@@ -54,7 +54,7 @@ padding:10px;
 
 <body>
 
-<div class="chat-container">
+<div class="chat">
 
 <h2>Siggy AI</h2>
 
@@ -62,7 +62,7 @@ padding:10px;
 
 <br>
 
-<input id="msg" placeholder="Ask Siggy...">
+<input id="msg" placeholder="Ask Siggy">
 
 <button onclick="send()">Send</button>
 
@@ -72,11 +72,11 @@ padding:10px;
 
 async function send(){
 
-let message=document.getElementById("msg").value
+let msg=document.getElementById("msg").value
 
 let box=document.getElementById("messages")
 
-box.innerHTML+=`<div class="user">${message}</div>`
+box.innerHTML+=`<div class="user">${msg}</div>`
 
 let res=await fetch("/chat",{
 method:"POST",
@@ -85,7 +85,7 @@ headers:{
 },
 body:JSON.stringify({
 user_id:"demo",
-message:message
+message:msg
 })
 })
 
