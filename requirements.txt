@@ -1,0 +1,4 @@
+flask
+dashscope
+beautifulsoup4
+requests
