@@ -1,31 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
 
-BASE_URL = "https://www.ritualfoundation.org"
+BASE="https://www.ritualfoundation.org"
 
-pages = [
-"/docs/overview/what-is-ritual",
-"/docs/overview/architecture",
-"/docs/overview/vision",
-"/docs/developers",
-"/docs/tutorials"
+pages=[
+"/docs/overview/what-is-ritual"
 ]
 
-all_text = ""
+text=""
 
-for page in pages:
+for p in pages:
 
-    url = BASE_URL + page
+    url=BASE+p
+    r=requests.get(url)
 
-    res = requests.get(url)
+    soup=BeautifulSoup(r.text,"html.parser")
 
-    soup = BeautifulSoup(res.text, "html.parser")
+    text+=soup.get_text()
 
-    text = soup.get_text()
+with open("ritual_docs_full.txt","w",encoding="utf-8") as f:
+    f.write(text)
 
-    all_text += text + "\n\n"
-
-with open("ritual_docs_full.txt", "w", encoding="utf-8") as f:
-    f.write(all_text)
-
-print("Ritual docs downloaded.")
+print("Docs downloaded")
